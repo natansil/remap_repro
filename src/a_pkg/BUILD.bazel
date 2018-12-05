@@ -1,0 +1,32 @@
+load(
+    "@io_bazel_rules_scala//scala:scala.bzl",
+    "scala_binary",
+    "scala_library",
+    "scala_test",
+    "scala_macro_library",
+    "scala_specs2_junit_test",
+)
+
+load("//src/a_pkg:repro.bzl", "repro")
+
+package(default_visibility = ["//visibility:public"])
+
+scala_library(
+    name = "foo",
+    srcs = ["foo.scala"]
+)
+
+scala_library(
+    name = "non_qualified",
+    deps = [":foo"],
+)
+
+scala_library(
+    name = "fully_qualified",
+    deps = ["@a//src/a_pkg:foo"],
+)
+
+repro(
+    name = "boo",
+    deps = [":non_qualified", ":fully_qualified"],
+)
