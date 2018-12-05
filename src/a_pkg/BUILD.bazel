@@ -11,19 +11,19 @@ load("//src/a_pkg:repro.bzl", "repro")
 
 package(default_visibility = ["//visibility:public"])
 
-scala_library(
+java_library(
     name = "foo",
-    srcs = ["foo.scala"]
+    srcs = ["foo.java"]
 )
 
-scala_library(
+java_library(
     name = "non_qualified",
-    deps = [":foo"],
+    runtime_deps = [":foo"],
 )
 
-scala_library(
+java_library(
     name = "fully_qualified",
-    deps = ["@a//src/a_pkg:foo"],
+    runtime_deps = ["@a//src/a_pkg:foo"],
 )
 
 repro(
