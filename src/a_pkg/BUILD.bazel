@@ -1,28 +1,24 @@
-load(
-    "@io_bazel_rules_scala//scala:scala.bzl",
-    "scala_library",
-)
-
-load("//src/a_pkg:repro.bzl", "repro")
-
 package(default_visibility = ["//visibility:public"])
 
-scala_library(
-    name = "foo",
-    srcs = ["foo.scala"]
+filegroup(
+    name = "foo1",
+    srcs = ["bla.txt"],
 )
 
-scala_library(
-    name = "non_qualified",
-    deps = [":foo"],
+sh_library(
+    name = "lib",
+    data = [ ":foo1"]
 )
 
-scala_library(
-    name = "fully_qualified",
-    deps = ["@a//src/a_pkg:foo"],
+sh_library(
+    name = "lib2",
+    data = [ "@a//src/a_pkg:foo1"]
 )
 
-repro(
-    name = "boo",
-    deps = [":non_qualified", ":fully_qualified"],
+sh_test(
+    name = "foo_test",
+    size = "small",
+    srcs = ["foo_test.sh"],
+    deps = [":lib", ":lib2"],
+    # deps = [":lib2",":lib"],
 )
