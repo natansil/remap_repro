@@ -15,3 +15,18 @@ scala_repositories()
 
 load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
 scala_register_toolchains()
+
+load("@io_bazel_rules_scala//scala:scala_maven_import_external.bzl", "scala_maven_import_external", "scala_import_external")
+
+
+scala_maven_import_external(
+      name = "com_google_guava_guava",
+      artifact = "com.google.guava:guava:25.1-jre",
+      jar_sha256 = "6db0c3a244c397429c2e362ea2837c3622d5b68bb95105d37c21c36e5bc70abf",
+      srcjar_sha256 = "b7ffb578b2bd6445c958356e308d1c46c9ea6fb868fc9444bc8bda3a41875a1b",
+      deps = [
+          "@a//src/a_pkg:foo"
+      ],
+      server_urls = ["https://repo.maven.apache.org/maven2/"],
+      licenses = ["notice"],  # Apache 2.0
+  )
