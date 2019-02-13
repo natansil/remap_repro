@@ -25,3 +25,15 @@ repro = rule(
     },
     outputs={"bar": "bar.txt"},
 )
+
+FOO = ["@a//src/a_pkg:non_qualified"]
+
+def repro_macro(
+        name,
+        deps = [],
+        **kwargs):
+    repro(
+        name = name,
+        deps = deps + FOO,
+        **kwargs
+        )

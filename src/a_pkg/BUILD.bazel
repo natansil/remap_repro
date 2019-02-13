@@ -1,4 +1,4 @@
-load("//src/a_pkg:repro.bzl", "repro")
+load("//src/a_pkg:repro.bzl", "repro", "repro_macro")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -17,7 +17,7 @@ java_library(
     runtime_deps = ["@a//src/a_pkg:foo","@com_google_guava"],
 )
 
-repro(
+repro_macro(
     name = "boo",
     deps = [":non_qualified", ":fully_qualified"],
 )
