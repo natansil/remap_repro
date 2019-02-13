@@ -34,6 +34,6 @@ def repro_macro(
         **kwargs):
     repro(
         name = name,
-        deps = deps + FOO,
+        deps = list(depset(deps + FOO)),
         **kwargs
         )
